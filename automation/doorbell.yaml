@@ -1,0 +1,18 @@
+# ----- Дверной звонок с оповещением в телеграмм----- #
+- alias: Doorbell
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001a7ebef
+        click_type: single
+  action:
+    - service: xiaomi_aqara.play_ringtone
+      data_template:
+        gw_mac: !secret xiaomi_gw_mac
+        ringtone_id: "10"
+        ringtone_vol: "80"
+    - service: telegram_bot.send_message
+      data_template:
+        message: "{{ now().strftime('%H:%M') }} \U0001F6A8 Тын-дын! Кто-то звонит в дверь!"
+        target: !secret telegram_group_chat_id

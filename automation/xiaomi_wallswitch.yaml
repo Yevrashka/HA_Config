@@ -1,0 +1,71 @@
+# ----- Включение света при нажатии левого выключателя ----- #
+- alias: Lustra turn on with the left switch
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.wall_switch_left_158d0001641a9f
+        click_type: single
+  condition:
+    - condition: state
+      entity_id: light.lustra
+      state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: light.lustra
+      data_template:
+        brightness: 255
+        kelvin: 4000
+
+# ----- Выключение света при нажатии левого выключателя ----- #
+- alias: Lustra turn off with the left switch
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.wall_switch_left_158d0001641a9f
+        click_type: single
+  condition:
+    - condition: state
+      entity_id: light.lustra
+      state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: light.lustra
+      
+# ----- Изменение яркости света при нажатии правого выключателя ----- #
+- alias: Brightness change with the right switch
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.wall_switch_right_158d0001641a9f
+        click_type: single
+  condition:
+    - condition: state
+      entity_id: light.lustra
+      state: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.lustra
+      data_template:
+        brightness: >
+          {% set br = states.light.lustra.attributes.brightness | int %}
+          {% set br_min = 1 | int %}
+          {% set br_max = 255 | int %}
+          {% set step = 50 | int %}
+          {% if br > br_min + step %}
+            {% set br = br - step %}
+          {% else %}
+            {% set br = br_max %}
+          {% endif %}
+          {{ br }}
+         # {% if states.light.lustra.attributes.brightness %}
+           # {% if states.light.lustra.attributes.brightness - 60 >= 10 %}
+             # {{states.light.lustra.attributes.brightness - 60}}
+           # {% else %}
+             # {{states.light.lustra.attributes.brightness}}
+           # {% endif %}
+         # {% else %}
+           # 255
+         # {% endif %}

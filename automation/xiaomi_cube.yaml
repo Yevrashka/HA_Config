@@ -1,0 +1,35 @@
+# ----- Регулировка яркости люстры поворотом кубика ----- #
+- alias: Lustra brightness adjust with cube rotate
+  trigger:
+    - platform: event
+      event_type: cube_action
+      event_data:
+        entity_id: binary_sensor.cube_158d00010aec32
+        action_type: rotate
+  condition:
+    - condition: state
+      entity_id: light.lustra
+      state: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.lustra
+      data_template:
+        brightness: >
+          {% set br = states.light.lustra.attributes.brightness | int %}
+          {% set br_min = 1 | int %}
+          {% set br_max = 255 | int %}
+          {% set step = 50 | int %}
+          {% if trigger.event.data.action_value | default('0') | float < 0 %}
+            {% if br > br_min + step %}
+              {% set br = br - step %}
+            {% else %}
+              {% set br = br_min %}
+            {% endif %}
+          {% else %}
+            {% if br < br_max - step %}
+              {% set br = br + step %}
+            {% else %}
+              {% set br = br_max %}
+            {% endif %}
+          {% endif %}
+          {{ br }}

@@ -1,0 +1,34 @@
+# Определяем какие вкладки и элементы будут отображаться во frontend, а также, что будет отображаться на основной вкладке.
+default_view:
+  view: yes
+  entities:
+    - group.AlarmClock
+    - sensor.alarm_time
+    - light.lustra
+
+#Определяем какие элементы входят в состав группы
+alarmclock:
+  name: Будильник.
+  entities:
+    - sensor.alarm_time
+    - input_number.alarmhour
+    - input_number.alarmminutes
+    - input_boolean.alarmweekday
+
+#Вкладка (tab) описываем состав вкладки.
+AlarmClock:
+  name: Будильник
+  view: yes
+  entities:
+    - group.alarmclock
+
+floorplan:
+  name: Floorplan
+  view: yes
+  entities:
+    - group.zones
+
+zones:
+  name: План квартиры
+  entities:
+    - binary_sensor.floorplan

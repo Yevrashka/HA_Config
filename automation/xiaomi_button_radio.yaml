@@ -1,0 +1,24 @@
+# ----- Включение/выключение радио на шлюзе кнопкой ----- #
+- alias: Turn on/off the radio
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001872b90
+        click_type: long_click_press
+  action:
+    - service: media_player.toggle
+      entity_id: media_player.xiaomi_gateway_radio
+
+# ----- Переключение каналов радио на шлюзе кнопкой ----- #
+- alias: Switch the radio channels
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001872b90
+        click_type: double
+  action:
+    - service: media_player.media_next_track
+      entity_id: media_player.xiaomi_gateway_radio
+

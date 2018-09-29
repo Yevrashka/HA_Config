@@ -1,0 +1,557 @@
+title: My Awesome Home
+# Include external resources
+resources:
+  - url: /local/my-custom-card.js
+    type: js
+  - url: /local/my-webfont.css
+    type: css
+
+# Optional background for all views. Check https://developer.mozilla.org/en-US/docs/Web/CSS/background for more examples.
+background: center / cover no-repeat url("/background.png") fixed
+# Exclude entities from "Unused entities" view
+excluded_entities:
+  - weblink.router
+views:
+    # View tab title.
+  - title: Example
+    # Optional unique id for direct access /lovelace/${id}
+    id: example
+    # Optional background (overwrites the global background).
+    background: radial-gradient(crimson, skyblue)
+    # Each view can have a different theme applied. Theme should be defined in the frontend.
+    theme: dark-mode
+    # The cards to show on this view.
+    cards:
+        # The filter card will filter entities for their state
+      - type: entity-filter
+        entities:
+          - device_tracker.paulus
+          - device_tracker.anne_there
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          title: People that are home
+
+        # The picture entity card will represent an entity with a picture
+      - type: picture-entity
+        image: https://www.home-assistant.io/images/default-social.png
+        entity: light.bed_light
+
+    # Specify a tab icon if you want the view tab to be an icon.
+  - icon: mdi:home-assistant
+    # Title of the view. Will be used as the tooltip for tab icon
+    title: Погода
+    background: radial-gradient(crimson, skyblue)
+    cards:
+      - type: picture-elements
+        image: /local/weather/bg/bg.png
+        elements:
+          # bg_now
+          - type: image
+            entity: sensor.dark_sky_icon
+            state_image:
+             'clear-day': /local/weather/bg/clear-day_bg.png
+             'clear-night': /local/weather/bg/clear-night_bg.png
+             'rain': /local/weather/bg/rain_bg.png
+             'snow': /local/weather/bg/snow_bg.png
+             'sleet': /local/weather/bg/sleet_bg.png
+             'wind': /local/weather/bg/wind_bg.png
+             'fog': /local/weather/bg/fog_bg.png
+             'cloudy': /local/weather/bg/cloudy_bg.png
+             'partly-cloudy-day': /local/weather/bg/partly-cloudy-day_bg.png
+             'partly-cloudy-night': /local/weather/bg/partly-cloudy-night_bg.png
+            style:
+              top: 0%
+              left: 0%
+              weight: 100%
+              transform: none
+
+          # city
+          - type: state-label
+            entity: sensor.city
+            style:
+              top: 5%
+              left: 50%
+              color: white
+              transform: translate(-50%, -50%)
+              pointer-events: none
+              font-size: 200%
+              font-weight: 350
+              text-shadow: 1px 1px rgb(44, 90, 140)
+
+          # summary
+          - type: state-label
+            entity: sensor.dark_sky_summary
+            style:
+              top: 12.5%
+              left: 50%
+              color: white
+              transform: translate(-50%, -50%)
+              pointer-events: none
+              font-size: 120%
+              font-weight: 350
+              text-shadow: 1px 1px rgb(44, 90, 140)
+
+          # temp_now
+          - type: state-label
+            entity: sensor.temp_now
+            style:
+              top: 22.5%
+              left: 50%
+              color: white
+              transform: translate(-50%, -50%)
+              pointer-events: none
+              font-size: 500%
+              font-weight: 350
+              text-shadow: 1px 1px rgb(44, 90, 140)
+
+          # tile_1
+          - type: state-label
+            entity: sensor
+            style:
+              top: 30%
+              left: 2%
+              transform: none
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+              background: rgb(44, 90, 140)
+              border-radius: 6px
+              width: 96%
+              height: 38%
+              opacity: 0.6
+
+          # tile_2
+          - type: state-label
+            entity: sensor
+            style:
+              top: 70%
+              left: 2%
+              transform: none
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+              background: rgb(44, 90, 140)
+              border-radius: 6px
+              width: 96%
+              height: 28%
+              opacity: 0.6
+
+          # day_1_ahead
+          - type: state-label
+            entity: sensor.day_1_ahead
+            style:
+              top: 30%
+              left: 2.5%
+              color: white
+              transform: none
+              text-transform: uppercase
+              font-size: 80%
+          - type: state-label
+            entity: sensor.temp_max_day_1_ahead
+            style:
+              top: 30%
+              right: 9%
+              color: white
+              transform: none
+              font-size: 90%
+          - type: state-label
+            entity: sensor.temp_min_day_1_ahead
+            style:
+              top: 30%
+              right: 2.5%
+              color: rgb(128, 221, 253)
+              transform: none
+              font-size: 90%
+          - type: image
+            entity: sensor.dark_sky_icon_1
+            state_image:
+             'clear-day': /local/weather/icons/clear-day.png
+             'clear-night': /local/weather/icons/clear-night.png
+             'rain': /local/weather/icons/rain.png
+             'snow': /local/weather/icons/snow.png
+             'sleet': /local/weather/icons/sleet.png
+             'wind': /local/weather/icons/wind.png
+             'fog': /local/weather/icons/fog.png
+             'cloudy': /local/weather/icons/cloudy.png
+             'partly-cloudy-day': /local/weather/icons/partly-cloudy-day.png
+             'partly-cloudy-night': /local/weather/icons/partly-cloudy-night.png
+            style:
+              top: 31%
+              right: 22%
+              transform: none
+              width: 5.5%
+              height: 5.5%
+
+          # day_2_ahead
+          - type: state-label
+            entity: sensor.day_2_ahead
+            style:
+              top: 34%
+              left: 2.5%
+              color: white
+              transform: none
+              text-transform: uppercase
+              font-size: 80%
+          - type: state-label
+            entity: sensor.temp_max_day_2_ahead
+            style:
+              top: 34%
+              right: 9%
+              color: white
+              transform: none
+              font-size: 90%
+          - type: state-label
+            entity: sensor.temp_min_day_2_ahead
+            style:
+              top: 34%
+              right: 2.5%
+              color: rgb(128, 221, 253)
+              transform: none
+              font-size: 90%
+          - type: image
+            entity: sensor.dark_sky_icon_2
+            state_image:
+             'clear-day': /local/weather/icons/clear-day.png
+             'clear-night': /local/weather/icons/clear-night.png
+             'rain': /local/weather/icons/rain.png
+             'snow': /local/weather/icons/snow.png
+             'sleet': /local/weather/icons/sleet.png
+             'wind': /local/weather/icons/wind.png
+             'fog': /local/weather/icons/fog.png
+             'cloudy': /local/weather/icons/cloudy.png
+             'partly-cloudy-day': /local/weather/icons/partly-cloudy-day.png
+             'partly-cloudy-night': /local/weather/icons/partly-cloudy-night.png
+            style:
+              top: 35%
+              right: 22%
+              transform: none
+              width: 5.5%
+              height: 5.5%
+
+          # day_3_ahead
+          - type: state-label
+            entity: sensor.day_3_ahead
+            style:
+              top: 38%
+              left: 2.5%
+              color: white
+              transform: none
+              text-transform: uppercase
+              font-size: 80%
+          - type: state-label
+            entity: sensor.temp_max_day_3_ahead
+            style:
+              top: 38%
+              right: 9%
+              color: white
+              transform: none
+              font-size: 90%
+          - type: state-label
+            entity: sensor.temp_min_day_3_ahead
+            style:
+              top: 38%
+              right: 2.5%
+              color: rgb(128, 221, 253)
+              transform: none
+              font-size: 90%
+          - type: image
+            entity: sensor.dark_sky_icon_3
+            state_image:
+             'clear-day': /local/weather/icons/clear-day.png
+             'clear-night': /local/weather/icons/clear-night.png
+             'rain': /local/weather/icons/rain.png
+             'snow': /local/weather/icons/snow.png
+             'sleet': /local/weather/icons/sleet.png
+             'wind': /local/weather/icons/wind.png
+             'fog': /local/weather/icons/fog.png
+             'cloudy': /local/weather/icons/cloudy.png
+             'partly-cloudy-day': /local/weather/icons/partly-cloudy-day.png
+             'partly-cloudy-night': /local/weather/icons/partly-cloudy-night.png
+            style:
+              top: 38.6%
+              right: 22%
+              transform: none
+              width: 5.5%
+              height: 5.5%
+
+          # day_4_ahead
+          - type: state-label
+            entity: sensor.day_4_ahead
+            style:
+              top: 42%
+              left: 2.5%
+              color: white
+              transform: none
+              text-transform: uppercase
+              font-size: 80%
+          - type: state-label
+            entity: sensor.temp_max_day_4_ahead
+            style:
+              top: 42%
+              right: 9%
+              color: white
+              transform: none
+              font-size: 90%
+          - type: state-label
+            entity: sensor.temp_min_day_4_ahead
+            style:
+              top: 42%
+              right: 2.5%
+              color: rgb(128, 221, 253)
+              transform: none
+              font-size: 90%
+          - type: image
+            entity: sensor.dark_sky_icon_4
+            state_image:
+             'clear-day': /local/weather/icons/clear-day.png
+             'clear-night': /local/weather/icons/clear-night.png
+             'rain': /local/weather/icons/rain.png
+             'snow': /local/weather/icons/snow.png
+             'sleet': /local/weather/icons/sleet.png
+             'wind': /local/weather/icons/wind.png
+             'fog': /local/weather/icons/fog.png
+             'cloudy': /local/weather/icons/cloudy.png
+             'partly-cloudy-day': /local/weather/icons/partly-cloudy-day.png
+             'partly-cloudy-night': /local/weather/icons/partly-cloudy-night.png
+            style:
+              top: 42.6%
+              right: 22%
+              transform: none
+              width: 5.5%
+              height: 5.5%
+
+          # day_5_ahead
+          - type: state-label
+            entity: sensor.day_5_ahead
+            style:
+              top: 46%
+              left: 2.5%
+              color: white
+              transform: none
+              text-transform: uppercase
+              font-size: 80%
+          - type: state-label
+            entity: sensor.temp_max_day_5_ahead
+            style:
+              top: 46%
+              right: 9%
+              color: white
+              transform: none
+              font-size: 90%
+          - type: state-label
+            entity: sensor.temp_min_day_5_ahead
+            style:
+              top: 46%
+              right: 2.5%
+              color: rgb(128, 221, 253)
+              transform: none
+              font-size: 90%
+          - type: image
+            entity: sensor.dark_sky_icon_5
+            state_image:
+             'clear-day': /local/weather/icons/clear-day.png
+             'clear-night': /local/weather/icons/clear-night.png
+             'rain': /local/weather/icons/rain.png
+             'snow': /local/weather/icons/snow.png
+             'sleet': /local/weather/icons/sleet.png
+             'wind': /local/weather/icons/wind.png
+             'fog': /local/weather/icons/fog.png
+             'cloudy': /local/weather/icons/cloudy.png
+             'partly-cloudy-day': /local/weather/icons/partly-cloudy-day.png
+             'partly-cloudy-night': /local/weather/icons/partly-cloudy-night.png
+            style:
+              top: 46.8%
+              right: 22%
+              transform: none
+              width: 5.5%
+              height: 5.5%
+
+          # line
+          - type: image
+            image: /local/weather/icons/line.png
+            style:
+              top: 50.5%
+              left: 50% #4%
+              transform: translate(-50%, -50%)
+              width: 92%
+              height: 2.7%
+
+          # sunrise
+          - type: image
+            image: /local/weather/icons/sunrise.png
+            style:
+              top: 54%
+              left: 10%
+              transform: none
+              width: 12%
+              height: 12%
+          - type: state-label
+            entity: sensor.sunrise_time
+            style:
+              top: 65%
+              left: 16%
+              color: white
+              transform: translate(-50%, -50%)
+              font-size: 85%
+
+          # sunset
+          - type: image
+            image: /local/weather/icons/sunset.png
+            style:
+              top: 54%
+              right: 10%
+              transform: none
+              width: 12%
+              height: 12%
+          - type: state-label
+            entity: sensor.sunset_time
+            style:
+              top: 65%
+              right: 16%
+              color: white
+              transform: translate(50%, -50%)
+              font-size: 85%
+
+          # moon
+          - type: image
+            entity: sensor.moon
+            state_image:
+             'new_moon': /local/weather/moon/new_moon.png
+             'waxing_crescent': /local/weather/moon/waxing_crescent.png
+             'first_quarter': /local/weather/moon/first_quarter.png
+             'waxing_gibbous': /local/weather/moon/waxing_gibbous.png
+             'full_moon': /local/weather/moon/full_moon.png
+             'waning_gibbous': /local/weather/moon/waning_gibbous.png
+             'last_quarter': /local/weather/moon/last_quarter.png
+             'waning_crescent': /local/weather/moon/waning_crescent.png
+            style:
+              top: 60%
+              left: 50%
+              transform: translate(-50%, -50%)
+              width: 12%
+              height: 12%
+          - type: state-label
+            entity: sensor.moon_custom
+            style:
+              top: 65%
+              left: 50%
+              transform: translate(-50%, -50%)
+              text-transform: uppercase
+              color: white
+              font-size: 80%
+
+          # humidity
+          - type: image
+            image: /local/weather/icons/humidity.png
+            style:
+              top: 72.5%
+              left: 10%
+              transform: none
+              width: 11%
+              height: 11%
+          - type: state-label
+            entity: sensor.dark_sky_humidity
+            style:
+              top: 82%
+              left: 16%
+              transform: translate(-50%, -50%)
+              text-transform: uppercase
+              color: white
+              font-size: 80%
+
+          # wind
+          - type: image
+            image: /local/weather/icons/wind_turbine.png
+            style:
+              top: 77%
+              left: 50%
+              transform: translate(-50%, -50%)
+              width: 9.5%
+              height: 9.5%
+          - type: state-label
+            entity: sensor.wind_custom
+            style:
+              top: 82%
+              left: 50%
+              transform: translate(-50%, -50%)
+              text-transform: uppercase
+              color: white
+              font-size: 80%
+
+          # cloudy
+          - type: image
+            image: /local/weather/icons/cloudy.png
+            style:
+              top: 72.5%
+              right: 10%
+              transform: none
+              width: 12%
+              height: 12%
+          - type: state-label
+            entity: sensor.dark_sky_cloud_coverage
+            style:
+              top: 82%
+              right: 16%
+              color: white
+              transform: translate(50%, -50%)
+              font-size: 80%
+
+          # visibility
+          - type: image
+            image: /local/weather/icons/visibility.png
+            style:
+              top: 85%
+              left: 10%
+              transform: none
+              width: 12%
+              height: 12%
+          - type: state-label
+            entity: sensor.dark_sky_visibility
+            style:
+              top: 95%
+              left: 16%
+              transform: translate(-50%, -50%)
+              text-transform: uppercase
+              color: white
+              font-size: 80%
+
+          # pressure
+          - type: image
+            image: /local/weather/icons/pressure.png
+            style:
+              top: 90%
+              left: 50%
+              transform: translate(-50%, -50%)
+              width: 9.5%
+              height: 9.5%
+          - type: state-label
+            entity: sensor.dark_sky_pressure_custom
+            style:
+              top: 95%
+              left: 50%
+              transform: translate(-50%, -50%)
+              text-transform: uppercase
+              color: white
+              font-size: 80%
+
+          # uv_index
+          - type: image
+            image: /local/weather/icons/uv_index.png
+            style:
+              top: 85%
+              right: 10%
+              transform: none
+              width: 12%
+              height: 12%
+          - type: state-label
+            entity: sensor.dark_sky_uv_index
+            style:
+              top: 95%
+              right: 16%
+              color: white
+              transform: translate(50%, -50%)
+              font-size: 80%
+
+        # The markdown card will render markdown text.
+      - type: markdown
+        title: Lovelace
+        content: >
+          Welcome to your **Lovelace UI**.

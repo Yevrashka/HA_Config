@@ -1,0 +1,59 @@
+- alias: "cube_action_v2"
+  initial_state: 'off'
+  trigger:
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: flip90
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: free_fall
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: move
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: rotate
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: shake_air
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: tap_twice
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: flip180
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: swing
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: iam
+  - platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010aec32
+      action_type: alert
+  action:
+    - service: telegram_bot.send_message
+      data_template:
+        target: !secret telegram_group_chat_id
+        message: "\U0001F3B2 Cube is `{{ trigger.event.data.action_type }}  {{ trigger.event.data.action_value | default('-') }}`"
+#       message: "\U0001F3B2 Cube is {{ states.sensor.cube_action.state }}"

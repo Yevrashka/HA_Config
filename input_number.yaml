@@ -1,0 +1,14 @@
+alarmhour:
+  name: Часы
+  icon: mdi:timer
+  initial: 6 # значение по умолчанию
+  min: 0  #Минимальное значение
+  max: 23 #Максимальное значение
+  step: 1 #Шаг изменения
+alarmminutes:
+  name: Минуты
+  icon: mdi:timer
+  initial: 15
+  min: 0
+  max: 59
+  step: 1
